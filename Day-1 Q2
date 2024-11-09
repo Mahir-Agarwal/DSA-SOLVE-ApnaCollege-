@@ -1,0 +1,41 @@
+import java.util.Arrays;
+
+class Solution {
+    public int[] findMissingAndRepeatedValues(int[][] grid) {
+        int totalElements = grid.length * grid[0].length;
+        int[] flatGrid = new int[totalElements];
+        int[] result = new int[2];
+        
+        // Flatten the 2D array
+        int index = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                flatGrid[index++] = grid[i][j];
+            }
+        }
+
+        // Sort the flattened array
+        Arrays.sort(flatGrid);
+
+        int n = flatGrid.length;
+        boolean[] arr = new boolean[n + 1]; // for numbers from 1 to n
+
+        // Find the duplicate
+        for (int i = 0; i < n; i++) {
+            if (arr[flatGrid[i]]) { // already marked as true, so it's a duplicate
+                result[0] = flatGrid[i];
+            }
+            arr[flatGrid[i]] = true;
+        }
+
+        // Find the missing number
+        for (int i = 1; i <= n; i++) { // numbers range from 1 to n
+            if (!arr[i]) { // not marked, so it's missing
+                result[1] = i;
+                break;
+            }
+        }
+
+        return result;
+    }
+}
