@@ -1,0 +1,31 @@
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int i = 0;
+    int j = 0;
+    int k = 0;
+    int[] arr = new int[m + n]; // Array to hold merged elements
+
+    while (i < m && j < n) {
+        if (nums1[i] <= nums2[j]) {
+            arr[k++] = nums1[i++];
+        } else {
+            arr[k++] = nums2[j++];
+        }
+    }
+
+    // Copy remaining elements of nums1
+    while (i < m) {
+        arr[k++] = nums1[i++];
+    }
+
+    // Copy remaining elements of nums2
+    while (j < n) {
+        arr[k++] = nums2[j++];
+    }
+
+    // Copy elements from arr back to nums1
+    for (i = 0; i < m + n; i++) {
+        nums1[i] = arr[i];
+    }
+}
+}
