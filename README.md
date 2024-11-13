@@ -14,4 +14,5 @@ This repository aims to help students and professionals improve their problem-so
     and much more...
     
 Each day contains a set of questions with clear and well-commented solutions.
+Comments written with the help of ChatGPT :) 
 Enjoy and have fun while solving questions! 😊
