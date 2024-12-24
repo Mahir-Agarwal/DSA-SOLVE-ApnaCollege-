@@ -1,0 +1,20 @@
+import java.util.*;
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        char str [] = s1.toCharArray();
+        Arrays.sort(str);
+        String ss =  new String (str);
+        int i=0;
+        while(i <= s2.length() - s1.length()){
+            String n = s2.substring(i,i+ss.length());
+            char arr[] = n.toCharArray();
+            Arrays.sort(arr);
+            if(ss.equals(new String(arr))){
+                return true ;
+            }
+            i++;
+        }
+        return false;
+
+    }
+} 
