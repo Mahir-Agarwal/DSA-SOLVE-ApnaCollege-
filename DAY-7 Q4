@@ -1,0 +1,56 @@
+
+import java.util.*;
+
+class Solution {
+    public String minWindow(String s, String t) {
+        if (t.length() > s.length()) {
+            return "";
+        }
+
+        // Frequency map for characters in 't'
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (char c : t.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+
+        int reqC = t.length(); // Total required characters
+        char[] ch1 = s.toCharArray();
+        int i = 0, j = 0;
+        int windowSize = Integer.MAX_VALUE;
+        int start_i = 0;
+
+        while (j < s.length()) {
+            char ch = ch1[j];
+
+            // If character is in the map, decrease its frequency
+            if (map.containsKey(ch)) {
+                if (map.get(ch) > 0) {
+                    reqC--;
+                }
+                map.put(ch, map.get(ch) - 1);
+            }
+
+            // Try to shrink the window when all characters are matched
+            while (reqC == 0) {
+                int currWindowSize = j - i + 1;
+                if (windowSize > currWindowSize) {
+                    windowSize = currWindowSize;
+                    start_i = i;
+                }
+
+                char startChar = ch1[i];
+                if (map.containsKey(startChar)) {
+                    map.put(startChar, map.get(startChar) + 1);
+                    if (map.get(startChar) > 0) {
+                        reqC++;
+                    }
+                }
+                i++; // Shrink from the left
+            }
+
+            j++; // Expand the window from the right
+        }
+
+        return windowSize == Integer.MAX_VALUE ? "" : s.substring(start_i, start_i + windowSize);
+    }
+}
