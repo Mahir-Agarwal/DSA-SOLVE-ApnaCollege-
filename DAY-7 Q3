@@ -1,0 +1,22 @@
+import java.util.*;
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        // Map to group anagrams
+        Map<String, List<String>> anagramMap = new HashMap<>();
+
+        // Iterate through each string in the input array
+        for (String str : strs) {
+            // Convert the string to a char array, sort it, and reconstruct the string
+            char[] arr = str.toCharArray();
+            Arrays.sort(arr);
+            String sorted = new String(arr);
+
+            // Add the original string to the group identified by the sorted key
+            anagramMap.computeIfAbsent(sorted, k -> new ArrayList<>()).add(str);
+        }
+
+        // Return the values of the map as a list of lists
+        return new ArrayList<>(anagramMap.values());
+    }
+}
