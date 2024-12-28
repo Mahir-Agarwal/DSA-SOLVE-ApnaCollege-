@@ -1,0 +1,25 @@
+class Solution {
+    public int singleNonDuplicate(int[] nums) {
+        int s = 0;
+        int e = nums.length - 1;
+
+        while (s < e) {
+            int mid = s + (e - s) / 2;
+
+            // Ensure `mid` is aligned to the start of a pair
+            if (mid % 2 == 1) {
+                mid--; // Adjust `mid` to be even
+            }
+
+            // Check the pair at `mid` and `mid + 1`
+            if (nums[mid] == nums[mid + 1]) {
+                s = mid + 2; // Unique element lies in the right half
+            } else {
+                e = mid; // Unique element lies in the left half
+            }
+        }
+
+        // `s` will point to the single element
+        return nums[s];
+    }
+}
